@@ -36,10 +36,7 @@ namespace OnlineCourse.Domain.Courses
                 targetAudience, courseDto.Value);
 
             _courseRepository.Add(course);
-
-            
-
-            
+           
         }
     }
 

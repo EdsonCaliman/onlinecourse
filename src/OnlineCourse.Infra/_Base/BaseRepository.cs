@@ -17,7 +17,6 @@ namespace OnlineCourse.Infra._Base
         public void Add(TEntity entity)
         {
             _context.Set<TEntity>().Add(entity);
-            _context.SaveChanges();
         }
 
         public List<TEntity> GetAll()

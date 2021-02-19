@@ -16,10 +16,5 @@ namespace OnlineCourse.Infra.Contexts
         {
             base.OnModelCreating(modelBuilder);
         }
-
-        public async Task Commit()
-        {
-            await SaveChangesAsync();
-        }
     }
 }

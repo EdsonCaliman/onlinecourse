@@ -28,15 +28,32 @@ namespace OnlineCouser.Api
                 options.UseSqlServer(Configuration["ConnectionString"]));
             services.AddScoped(typeof(IRepository<>), typeof(BaseRepository<>));
             services.AddScoped(typeof(ICourseRepository), typeof(CourseRepository));
+            services.AddScoped(typeof(IUnitOfWork), typeof(UnitOfWork));
             services.AddScoped<CourseService>();
 
-
             services.AddControllers();
+
+            services.AddSwaggerGen();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
+            app.UseSwagger();
+
+            app.UseSwaggerUI(c =>
+            {
+                c.SwaggerEndpoint("/swagger/v1/swagger.json", "My API V1");
+            });
+
+            app.Use(async (context, next) =>
+            {
+                await next.Invoke();
+
+                var unitOfWork = (IUnitOfWork)context.RequestServices.GetService(typeof(IUnitOfWork));
+                await unitOfWork.Commit();
+            });
+
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
