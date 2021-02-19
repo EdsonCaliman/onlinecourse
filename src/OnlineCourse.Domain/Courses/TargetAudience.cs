@@ -1,4 +1,4 @@
-﻿namespace OnlineCourse.DomainTests.Courses
+﻿namespace OnlineCourse.Domain.Courses
 {
     public enum TargetAudience
     {

@@ -1,14 +1,21 @@
-﻿using System;
+﻿using OnlineCourse.Domain._Base;
+using System;
+using System.Collections.Generic;
 
-namespace OnlineCourse.DomainTests.Courses
+namespace OnlineCourse.Domain.Courses
 {
     public class CourseService
     {
-        private ICourseRepository _courseRepository;
+        private readonly ICourseRepository _courseRepository;
 
         public CourseService(ICourseRepository courseRepository)
         {
             _courseRepository = courseRepository;
+        }
+
+        public IEnumerable<Course> GetAll()
+        {
+            return _courseRepository.GetAll();
         }
 
         public void Save(CourseDto courseDto)
@@ -29,6 +36,10 @@ namespace OnlineCourse.DomainTests.Courses
                 targetAudience, courseDto.Value);
 
             _courseRepository.Add(course);
+
+            
+
+            
         }
     }
 

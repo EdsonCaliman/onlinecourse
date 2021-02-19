@@ -1,14 +1,19 @@
-﻿using System;
+﻿using OnlineCourse.Domain._Base;
+using System;
 
-namespace OnlineCourse.DomainTests.Courses
+namespace OnlineCourse.Domain.Courses
 {
-    public class Course
+    public class Course : Entity
     {
         public string Name { get; private set; }
         public double WorkLoad { get; private set; }
         public TargetAudience TargetAudience { get; private set; }
         public double Value { get; private set; }
         public string Description { get; private set; }
+
+        protected Course()
+        {
+        }
 
         public Course(string name, string _description, double workLoad, TargetAudience targetAudience, double value)
         {

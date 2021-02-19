@@ -1,4 +1,6 @@
-﻿namespace OnlineCourse.DomainTests.Courses
+﻿using OnlineCourse.Domain.Courses;
+
+namespace OnlineCourse.DomainTests._Builders
 {
     class CourseBuilder
     {

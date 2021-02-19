@@ -1,5 +1,8 @@
 ﻿using Bogus;
 using Moq;
+using OnlineCourse.Domain._Base;
+using OnlineCourse.Domain.Courses;
+using OnlineCourse.DomainTests._Builders;
 using OnlineCourse.DomainTests._Extentions;
 using System;
 using Xunit;

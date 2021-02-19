@@ -1,5 +1,7 @@
 ﻿using Bogus;
 using ExpectedObjects;
+using OnlineCourse.Domain.Courses;
+using OnlineCourse.DomainTests._Builders;
 using OnlineCourse.DomainTests._Extentions;
 using System;
 using Xunit;
