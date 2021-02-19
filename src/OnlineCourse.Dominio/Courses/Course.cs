@@ -8,7 +8,6 @@ namespace OnlineCourse.DomainTests.Courses
         public double WorkLoad { get; private set; }
         public TargetAudience TargetAudience { get; private set; }
         public double Value { get; private set; }
-
         public string Description { get; private set; }
 
         public Course(string name, string _description, double workLoad, TargetAudience targetAudience, double value)
