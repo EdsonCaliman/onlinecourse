@@ -1,6 +1,8 @@
 ﻿using OnlineCourse.Domain._Base;
+using OnlineCourse.Domain.Resources;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace OnlineCourse.Domain.Courses
 {
@@ -13,30 +15,59 @@ namespace OnlineCourse.Domain.Courses
             _courseRepository = courseRepository;
         }
 
-        public IEnumerable<Course> GetAll()
+        public IEnumerable<CourseListDto> GetAll()
         {
-            return _courseRepository.GetAll();
+            var courseList = _courseRepository.GetAll();
+
+            if (courseList.Any())
+            {
+                var courseDtoList = courseList.Select(c => new CourseListDto
+                {
+                    Id = c.Id,
+                    Name = c.Name,
+                    Description = c.Description,
+                    TargetAudience = c.TargetAudience.ToString(),
+                    Value = c.Value,
+                    WorkLoad = c.WorkLoad
+                });
+
+                return courseDtoList;
+            }
+
+            return null;
         }
 
-        public void Save(CourseDto courseDto)
+        public void Add(CourseDto courseDto)
         {
             var courseAlreadySave = _courseRepository.GetByName(courseDto.Name);
 
-            if (courseAlreadySave != null)
-            {
-                throw new ArgumentException("This name is already exists");
-            }
-
-            if (!Enum.TryParse<TargetAudience>(courseDto.TargetAudience, out var targetAudience))
-            {
-                throw new ArgumentException("Invalid Target Audience");
-            }
+            RuleValidator.New()
+                .When(courseAlreadySave != null, Messages.NAME_IS_ALREADY_EXISTS)
+                .When(!Enum.TryParse<TargetAudience>(courseDto.TargetAudience, out var targetAudience), Messages.INVALID_TARGETAUDIENCE)
+                .ThrowExceptionIfExists();
 
             var course = new Course(courseDto.Name, courseDto.Description, courseDto.WorkLoad,
                 targetAudience, courseDto.Value);
 
             _courseRepository.Add(course);
            
+        }
+
+        public void Update(CourseDto courseDto)
+        {
+            var courseAlreadySave = _courseRepository.GetById(courseDto.Id);
+
+            if (courseAlreadySave == null)
+            {
+                return;
+            }
+
+            courseAlreadySave.ChangeName(courseDto.Name);
+            courseAlreadySave.ChangeWorkLoad(courseDto.WorkLoad);
+            courseAlreadySave.ChangeValue(courseDto.Value);
+
+            _courseRepository.Update(courseAlreadySave);
+
         }
     }
 

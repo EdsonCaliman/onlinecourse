@@ -2,9 +2,9 @@
 using Moq;
 using OnlineCourse.Domain._Base;
 using OnlineCourse.Domain.Courses;
+using OnlineCourse.Domain.Resources;
 using OnlineCourse.DomainTests._Builders;
 using OnlineCourse.DomainTests._Extentions;
-using System;
 using Xunit;
 
 namespace OnlineCourse.DomainTests.Courses
@@ -20,6 +20,7 @@ namespace OnlineCourse.DomainTests.Courses
             var fake = new Faker();
             _courseDto = new CourseDto
             {
+                Id = 323,
                 Name = fake.Random.Words(),
                 Description = fake.Lorem.Paragraph(),
                 WorkLoad = fake.Random.Double(50, 1000),
@@ -34,9 +35,9 @@ namespace OnlineCourse.DomainTests.Courses
         [Fact]
         public void ShouldAddCourse()
         {
-            _courseService.Save(_courseDto);
+            _courseService.Add(_courseDto);
 
-            //courseStorageMock.Verify(r => r.Add(It.IsAny<Course>()), Times.AtLeast(1));
+            //_courseRepositoryMock.Verify(r => r.Add(It.IsAny<Course>()), Times.AtLeast(1));
             _courseRepositoryMock.Verify(r => r.Add(
                 It.Is<Course>(
                     c => c.Name == _courseDto.Name &&
@@ -51,8 +52,8 @@ namespace OnlineCourse.DomainTests.Courses
             var invalidTargetAudience = "Doctor";
             _courseDto.TargetAudience = invalidTargetAudience;
 
-            Assert.Throws<ArgumentException>(() => _courseService.Save(_courseDto))
-                .WithMessage("Invalid Target Audience");
+            Assert.Throws<DomainException>(() => _courseService.Add(_courseDto))
+                .WithMessage(Messages.INVALID_TARGETAUDIENCE);
         }
 
         [Fact]
@@ -62,9 +63,26 @@ namespace OnlineCourse.DomainTests.Courses
 
             _courseRepositoryMock.Setup(r => r.GetByName(_courseDto.Name)).Returns(courseAlreadySave);
 
-            Assert.Throws<ArgumentException>(() => _courseService.Save(_courseDto))
-                .WithMessage("This name is already exists");
+            Assert.Throws<DomainException>(() => _courseService.Add(_courseDto))
+                .WithMessage(Messages.NAME_IS_ALREADY_EXISTS);
 
+        }
+
+        [Fact]
+        public void ShouldUpdateCourse()
+        {
+            var courseAlreadySave = CourseBuilder.New().Build();
+
+            _courseRepositoryMock.Setup(r => r.GetById(_courseDto.Id)).Returns(courseAlreadySave);
+
+            _courseService.Update(_courseDto);
+
+            Assert.Equal(_courseDto.Name, courseAlreadySave.Name);
+            Assert.Equal(_courseDto.WorkLoad, courseAlreadySave.WorkLoad);
+            Assert.Equal(_courseDto.Value, courseAlreadySave.Value);
+
+            _courseRepositoryMock.Verify(r => r.Update(It.IsAny<Course>()));
+            _courseRepositoryMock.Verify(r => r.Add(It.IsAny<Course>()), Times.Never());
         }
 
     }

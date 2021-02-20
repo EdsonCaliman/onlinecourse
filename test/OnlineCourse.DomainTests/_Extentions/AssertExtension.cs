@@ -1,13 +1,13 @@
-﻿using System;
+﻿using OnlineCourse.Domain._Base;
 using Xunit;
 
 namespace OnlineCourse.DomainTests._Extentions
 {
     public static class AssertExtension
     {
-        public static void WithMessage(this ArgumentException exception, string message)
+        public static void WithMessage(this DomainException exception, string message)
         {
-            if (exception.Message == message)
+            if (exception.ListOfRules.Contains(message))
             {
                 Assert.True(true);
             } else

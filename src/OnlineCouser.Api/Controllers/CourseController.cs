@@ -1,6 +1,8 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using OnlineCourse.Domain.Courses;
+using System;
 using System.Collections.Generic;
+using OnlineCourse.Domain._Base;
 
 namespace OnlineCouser.Api.Controllers
 {
@@ -16,15 +18,47 @@ namespace OnlineCouser.Api.Controllers
         }
 
         [HttpGet]
-        public IEnumerable<Course> Get()
+        public IEnumerable<CourseListDto> Get()
         {
             return _courseService.GetAll();
         }
 
         [HttpPost]
-        public IActionResult Save(CourseDto model)
+        public IActionResult Add(CourseDto model)
         {
-            _courseService.Save(model);
+            try
+            {
+                _courseService.Add(model);
+            }
+            catch (Exception ex)
+            {
+                if(ex is DomainException exception)
+                {
+                    return new
+                        JsonResult(exception.ListOfRules);
+                }
+
+            }
+
+            return Ok();
+        }
+
+        [HttpPut]
+        public IActionResult Update(CourseDto model)
+        {
+            try
+            {
+                _courseService.Update(model);
+            }
+            catch (Exception ex)
+            {
+                if (ex is DomainException exception)
+                {
+                    return new
+                        JsonResult(exception.ListOfRules);
+                }
+
+            }
 
             return Ok();
         }

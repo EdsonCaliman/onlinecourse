@@ -1,6 +1,6 @@
 ﻿namespace OnlineCourse.Domain.Courses
 {
-    public class CourseDto
+    public class CourseListDto
     {
         public int Id { get; set; }
         public string Name { get; set; }

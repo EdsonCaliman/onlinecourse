@@ -1,40 +1,33 @@
 ﻿using Bogus;
 using ExpectedObjects;
+using OnlineCourse.Domain._Base;
 using OnlineCourse.Domain.Courses;
+using OnlineCourse.Domain.Resources;
 using OnlineCourse.DomainTests._Builders;
 using OnlineCourse.DomainTests._Extentions;
-using System;
 using Xunit;
 using Xunit.Abstractions;
 
 namespace OnlineCourse.DomainTests.Courses
 {
-    public class CourseTest : IDisposable
+    public class CourseTest
     {
+        private readonly Faker _faker;
         private readonly string _name;
         private readonly string _description;
         private readonly double _workLoad;
         private readonly TargetAudience _targetAudience;
         private readonly double _value;
-        private readonly ITestOutputHelper _output;
-
-        public CourseTest(ITestOutputHelper output)
+  
+        public CourseTest()
         {
-            var faker = new Faker();
-            _name = faker.Random.Word();
-            _description = faker.Lorem.Paragraph();
-            _workLoad = faker.Random.Double(50, 1000);
+            _faker = new Faker();
+            _name = _faker.Random.Word();
+            _description = _faker.Lorem.Paragraph();
+            _workLoad = _faker.Random.Double(50, 1000);
             _targetAudience = TargetAudience.Student;
-            _value = faker.Random.Double(100, 1000); ;
-            _output = output;
-            _output.WriteLine("Construtor sendo executado");
+            _value = _faker.Random.Double(100, 1000); ;
         }
-
-        public void Dispose()
-        {
-            _output.WriteLine("Dispose sendo executado");
-        }
-
 
         [Fact]
         public void ShouldCreateCourse()
@@ -60,7 +53,7 @@ namespace OnlineCourse.DomainTests.Courses
         [InlineData(null)]
         public void ShouldNotHaveCourseInvalidName(string invalidName)
         {
-            Assert.Throws<ArgumentException>(() => CourseBuilder.New().WithName(invalidName).Build()).WithMessage("Invalid Name");
+            Assert.Throws<DomainException>(() => CourseBuilder.New().WithName(invalidName).Build()).WithMessage(Messages.INVALID_NAME);
         }
 
         [Theory]
@@ -69,7 +62,7 @@ namespace OnlineCourse.DomainTests.Courses
         [InlineData(-100)]
         public void ShouldNotHaveCourseWorkLoadLessThanOne(double invalidWorkLoad)
         {
-            Assert.Throws<ArgumentException>(() => CourseBuilder.New().WithWorkLoad(invalidWorkLoad).Build()).WithMessage("Invalid WorkLoad");
+            Assert.Throws<DomainException>(() => CourseBuilder.New().WithWorkLoad(invalidWorkLoad).Build()).WithMessage(Messages.INVALID_WORKLOAD);
         }
 
         [Theory]
@@ -78,7 +71,75 @@ namespace OnlineCourse.DomainTests.Courses
         [InlineData(-100)]
         public void ShouldNotHaveCourseValueLessThanOne(double invalidValue)
         {
-            Assert.Throws<ArgumentException>(() => CourseBuilder.New().WithValue(invalidValue).Build()).WithMessage("Invalid Value");
+            Assert.Throws<DomainException>(() => CourseBuilder.New().WithValue(invalidValue).Build()).WithMessage(Messages.INVALID_VALUE);
+        }
+
+        [Fact]
+        public void ShouldChangeName()
+        {
+            var expectedName = _faker.Person.FullName;
+
+            var course = CourseBuilder.New().Build();
+
+            course.ChangeName(expectedName);
+
+            Assert.Equal(expectedName, course.Name);
+        }
+
+        [Theory]
+        [InlineData("")]
+        [InlineData(null)]
+        public void ShouldNotChangeInvalidName(string invalidName)
+        {
+            var course = CourseBuilder.New().Build();
+
+            Assert.Throws<DomainException>(() => course.ChangeName(invalidName)).WithMessage(Messages.INVALID_NAME);
+        }
+
+        [Fact]
+        public void ShouldChangeWorkLoad()
+        {
+            var expectedWorkLoad = 80;
+
+            var course = CourseBuilder.New().Build();
+
+            course.ChangeWorkLoad(expectedWorkLoad);
+
+            Assert.Equal(expectedWorkLoad, course.WorkLoad);
+        }
+
+        [Theory]
+        [InlineData(0)]
+        [InlineData(-2)]
+        [InlineData(-100)]
+        public void ShouldNotChangeInvalidWorkLoad(int invalidWorkLoad)
+        {
+            var course = CourseBuilder.New().Build();
+
+            Assert.Throws<DomainException>(() => course.ChangeWorkLoad(invalidWorkLoad)).WithMessage(Messages.INVALID_WORKLOAD);
+        }
+
+        [Fact]
+        public void ShouldChangeValue()
+        {
+            var expectedValue = 800;
+
+            var course = CourseBuilder.New().Build();
+
+            course.ChangeValue(expectedValue);
+
+            Assert.Equal(expectedValue, course.Value);
+        }
+
+        [Theory]
+        [InlineData(0)]
+        [InlineData(-2)]
+        [InlineData(-100)]
+        public void ShouldNotChangeInvalidValue(double invalidValue)
+        {
+            var course = CourseBuilder.New().Build();
+
+            Assert.Throws<DomainException>(() => course.ChangeValue(invalidValue)).WithMessage(Messages.INVALID_VALUE);
         }
     }
 }
