@@ -1,6 +1,6 @@
 ﻿using OnlineCourse.Domain._Base;
+using OnlineCourse.Domain.Commons;
 using OnlineCourse.Domain.Resources;
-using System;
 
 namespace OnlineCourse.Domain.Courses
 {

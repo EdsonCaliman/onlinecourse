@@ -61,6 +61,24 @@ namespace OnlineCourse.Domain.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Invalid Email.
+        /// </summary>
+        public static string INVALID_EMAIL {
+            get {
+                return ResourceManager.GetString("INVALID_EMAIL", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Invalid Identification Id.
+        /// </summary>
+        public static string INVALID_IDENTIFICATION_ID {
+            get {
+                return ResourceManager.GetString("INVALID_IDENTIFICATION_ID", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Invalid Name.
         /// </summary>
         public static string INVALID_NAME {

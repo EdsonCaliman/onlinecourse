@@ -1,4 +1,4 @@
-﻿namespace OnlineCourse.Domain.Courses
+﻿namespace OnlineCourse.Domain.Commons
 {
     public enum TargetAudience
     {

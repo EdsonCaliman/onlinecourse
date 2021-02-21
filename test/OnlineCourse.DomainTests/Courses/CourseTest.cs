@@ -1,12 +1,12 @@
 ﻿using Bogus;
 using ExpectedObjects;
 using OnlineCourse.Domain._Base;
+using OnlineCourse.Domain.Commons;
 using OnlineCourse.Domain.Courses;
 using OnlineCourse.Domain.Resources;
 using OnlineCourse.DomainTests._Builders;
 using OnlineCourse.DomainTests._Extentions;
 using Xunit;
-using Xunit.Abstractions;
 
 namespace OnlineCourse.DomainTests.Courses
 {

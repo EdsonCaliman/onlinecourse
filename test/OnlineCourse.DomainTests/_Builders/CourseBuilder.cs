@@ -1,4 +1,5 @@
-﻿using OnlineCourse.Domain.Courses;
+﻿using OnlineCourse.Domain.Commons;
+using OnlineCourse.Domain.Courses;
 
 namespace OnlineCourse.DomainTests._Builders
 {
