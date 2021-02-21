@@ -2,19 +2,21 @@
 using ExpectedObjects;
 using OnlineCourse.Domain._Base;
 using OnlineCourse.Domain.Commons;
+using OnlineCourse.Domain.Resources;
 using OnlineCourse.Domain.Students;
 using OnlineCourse.DomainTests._Builders;
+using OnlineCourse.DomainTests._Extentions;
 using Xunit;
 
 namespace OnlineCourse.DomainTests.Students
 {
     public class StudentTest
     {
-        private readonly Faker _fake;
+        private readonly Faker _faker;
 
         public StudentTest()
         {
-            _fake = new Faker();
+            _faker = new Faker();
         }
 
         [Fact]
@@ -22,9 +24,9 @@ namespace OnlineCourse.DomainTests.Students
         {
             var expectedStudent = new
             {
-                Name = _fake.Person.FullName,
-                IdentificationId = _fake.Random.Int(),
-                Email = _fake.Person.Email,
+                Name = _faker.Person.FullName,
+                IdentificationId = _faker.Random.Int(1, 1000),
+                _faker.Person.Email,
                 TargetAudience = TargetAudience.Student
             };
 
@@ -55,6 +57,28 @@ namespace OnlineCourse.DomainTests.Students
         public void ShouldNotHaveStudentInvalidEmail(string invalidEmail)
         {
             Assert.Throws<DomainException>(() => StudentBuilder.New().WithEmail(invalidEmail).Build());
+        }
+
+        [Fact]
+        public void ShouldChangeName()
+        {
+            var expectedName = _faker.Person.FullName;
+
+            var student = StudentBuilder.New().Build();
+
+            student.ChangeName(expectedName);
+
+            Assert.Equal(expectedName, student.Name);
+        }
+
+        [Theory]
+        [InlineData("")]
+        [InlineData(null)]
+        public void ShouldNotChangeInvalidName(string invalidName)
+        {
+            var student = StudentBuilder.New().Build();
+
+            Assert.Throws<DomainException>(() => student.ChangeName(invalidName)).WithMessage(Messages.INVALID_NAME);
         }
     }
 }

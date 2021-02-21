@@ -6,18 +6,18 @@ namespace OnlineCourse.DomainTests._Builders
 {
     public class StudentBuilder
     {
-        private readonly Faker _fake;
+        private readonly Faker _faker;
 
         private string Name;
         private int IdentificationId;
         private string Email;
-        private TargetAudience TargetAudience;
+        private readonly TargetAudience TargetAudience;
         private StudentBuilder()
         {
-            _fake = new Faker();
-            Name = _fake.Person.FullName;
-            IdentificationId = _fake.Random.Int();
-            Email = _fake.Person.Email;
+            _faker = new Faker();
+            Name = _faker.Person.FullName;
+            IdentificationId = _faker.Random.Int(1, 1000);
+            Email = _faker.Person.Email;
             TargetAudience = TargetAudience.Student;
         }
 

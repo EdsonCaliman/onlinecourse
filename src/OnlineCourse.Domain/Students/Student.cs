@@ -1,6 +1,5 @@
 ﻿using OnlineCourse.Domain._Base;
 using OnlineCourse.Domain.Commons;
-using OnlineCourse.Domain.Courses;
 using OnlineCourse.Domain.Resources;
 
 namespace OnlineCourse.Domain.Students
@@ -27,6 +26,15 @@ namespace OnlineCourse.Domain.Students
             IdentificationId = identificationId;
             Email = email;
             TargetAudience = targetAudiente;
+        }
+
+        public void ChangeName(string name)
+        {
+            RuleValidator.New()
+                .When(string.IsNullOrEmpty(name), Messages.INVALID_NAME)
+                .ThrowExceptionIfExists();
+
+            this.Name = name;
         }
     }
 }

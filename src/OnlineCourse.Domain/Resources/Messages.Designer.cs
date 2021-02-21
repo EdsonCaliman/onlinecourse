@@ -61,6 +61,15 @@ namespace OnlineCourse.Domain.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to This Identification Id is already exists.
+        /// </summary>
+        public static string IDENTIFICATION_ID_IS_ALREADY_EXISTS {
+            get {
+                return ResourceManager.GetString("IDENTIFICATION_ID_IS_ALREADY_EXISTS", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Invalid Email.
         /// </summary>
         public static string INVALID_EMAIL {
