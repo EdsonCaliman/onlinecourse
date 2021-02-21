@@ -6,7 +6,7 @@ using System.Linq;
 
 namespace OnlineCourse.Infra.Repositories
 {
-    class StudentRepository : BaseRepository<Student>, IStudentRepository
+    public class StudentRepository : BaseRepository<Student>, IStudentRepository
     {
         public StudentRepository(ApplicationDbContext context) : base(context)
         {

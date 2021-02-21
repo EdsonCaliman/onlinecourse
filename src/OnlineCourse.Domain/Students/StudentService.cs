@@ -2,6 +2,8 @@
 using OnlineCourse.Domain.Commons;
 using OnlineCourse.Domain.Resources;
 using System;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace OnlineCourse.Domain.Students
 {
@@ -27,6 +29,17 @@ namespace OnlineCourse.Domain.Students
             
             _studentRepository.Add(student);
 
+        }
+
+        public IEnumerable<StudentListDto> GetAll()
+        {
+            return _studentRepository.GetAll().Select(s => new StudentListDto
+            {
+                Name = s.Name,
+                IdentificationId = s.IdentificationId,
+                Email = s.Email,
+                TargetAudience = s.TargetAudience.ToString()
+            });
         }
 
         public void Update(StudentDto studentDto)

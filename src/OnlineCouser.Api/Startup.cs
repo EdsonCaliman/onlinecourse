@@ -6,6 +6,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using OnlineCourse.Domain._Base;
 using OnlineCourse.Domain.Courses;
+using OnlineCourse.Domain.Students;
 using OnlineCourse.Infra._Base;
 using OnlineCourse.Infra.Contexts;
 using OnlineCourse.Infra.Repositories;
@@ -28,8 +29,10 @@ namespace OnlineCouser.Api
                 options.UseSqlServer(Configuration["ConnectionString"]));
             services.AddScoped(typeof(IRepository<>), typeof(BaseRepository<>));
             services.AddScoped(typeof(ICourseRepository), typeof(CourseRepository));
+            services.AddScoped(typeof(IStudentRepository), typeof(StudentRepository));
             services.AddScoped(typeof(IUnitOfWork), typeof(UnitOfWork));
             services.AddScoped<CourseService>();
+            services.AddScoped<StudentService>();
 
             services.AddControllers();
 
