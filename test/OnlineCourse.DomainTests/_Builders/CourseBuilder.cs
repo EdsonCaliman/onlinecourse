@@ -3,13 +3,13 @@ using OnlineCourse.Domain.Courses;
 
 namespace OnlineCourse.DomainTests._Builders
 {
-    class CourseBuilder
+    public class CourseBuilder
     {
         private string _name  = "Basic Computing";
         private string _description = "Description";
         private double _workLoad = 80;
         private TargetAudience _targetAudience  = TargetAudience.Student;
-        private double _value = 950;
+        private decimal _value = 950;
 
         public static CourseBuilder New()
         {
@@ -34,7 +34,7 @@ namespace OnlineCourse.DomainTests._Builders
             return this;
         }
 
-        public CourseBuilder WithValue(double value)
+        public CourseBuilder WithValue(decimal value)
         {
             _value = value;
             return this;

@@ -120,6 +120,9 @@
   <data name="IDENTIFICATION_ID_IS_ALREADY_EXISTS" xml:space="preserve">
     <value>This Identification Id is already exists</value>
   </data>
+  <data name="INVALID_COURSE" xml:space="preserve">
+    <value>Invalid Course</value>
+  </data>
   <data name="INVALID_EMAIL" xml:space="preserve">
     <value>Invalid Email</value>
   </data>
@@ -128,6 +131,9 @@
   </data>
   <data name="INVALID_NAME" xml:space="preserve">
     <value>Invalid Name</value>
+  </data>
+  <data name="INVALID_STUDENT" xml:space="preserve">
+    <value>Invalid Student</value>
   </data>
   <data name="INVALID_TARGETAUDIENCE" xml:space="preserve">
     <value>Invalid Target Audience</value>
@@ -140,5 +146,8 @@
   </data>
   <data name="NAME_IS_ALREADY_EXISTS" xml:space="preserve">
     <value>This name is already exists</value>
+  </data>
+  <data name="REGISTRATION_VALUE_SHOULD_NOT_BE_BIGGER_THAN_COURSE" xml:space="preserve">
+    <value>Registration Value should not be bigger than the course Value</value>
   </data>
 </root>

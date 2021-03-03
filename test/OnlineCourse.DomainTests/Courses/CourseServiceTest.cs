@@ -25,7 +25,7 @@ namespace OnlineCourse.DomainTests.Courses
                 Description = fake.Lorem.Paragraph(),
                 WorkLoad = fake.Random.Double(50, 1000),
                 TargetAudience = "Student",
-                Value = fake.Random.Double(1000, 2000)
+                Value = fake.Random.Decimal(1000, 2000)
             };
 
             _courseRepositoryMock = new Mock<ICourseRepository>();

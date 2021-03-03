@@ -9,14 +9,14 @@ namespace OnlineCourse.Domain.Courses
         public string Name { get; private set; }
         public double WorkLoad { get; private set; }
         public TargetAudience TargetAudience { get; private set; }
-        public double Value { get; private set; }
+        public decimal Value { get; private set; }
         public string Description { get; private set; }
 
         protected Course()
         {
         }
 
-        public Course(string name, string _description, double workLoad, TargetAudience targetAudience, double value)
+        public Course(string name, string _description, double workLoad, TargetAudience targetAudience, decimal value)
         {
             RuleValidator.New()
                 .When(string.IsNullOrEmpty(name), Messages.INVALID_NAME)
@@ -49,7 +49,7 @@ namespace OnlineCourse.Domain.Courses
             this.WorkLoad = workLoad;
         }
 
-        public void ChangeValue(double value)
+        public void ChangeValue(decimal value)
         {
             RuleValidator.New()
                 .When(value < 1, Messages.INVALID_VALUE)

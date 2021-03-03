@@ -17,7 +17,7 @@ namespace OnlineCourse.DomainTests.Courses
         private readonly string _description;
         private readonly double _workLoad;
         private readonly TargetAudience _targetAudience;
-        private readonly double _value;
+        private readonly decimal _value;
   
         public CourseTest()
         {
@@ -26,7 +26,7 @@ namespace OnlineCourse.DomainTests.Courses
             _description = _faker.Lorem.Paragraph();
             _workLoad = _faker.Random.Double(50, 1000);
             _targetAudience = TargetAudience.Student;
-            _value = _faker.Random.Double(100, 1000); ;
+            _value = _faker.Random.Decimal(1, 10000);
         }
 
         [Fact]
@@ -69,7 +69,7 @@ namespace OnlineCourse.DomainTests.Courses
         [InlineData(0)]
         [InlineData(-2)]
         [InlineData(-100)]
-        public void ShouldNotHaveCourseValueLessThanOne(double invalidValue)
+        public void ShouldNotHaveCourseValueLessThanOne(decimal invalidValue)
         {
             Assert.Throws<DomainException>(() => CourseBuilder.New().WithValue(invalidValue).Build()).WithMessage(Messages.INVALID_VALUE);
         }
@@ -135,7 +135,7 @@ namespace OnlineCourse.DomainTests.Courses
         [InlineData(0)]
         [InlineData(-2)]
         [InlineData(-100)]
-        public void ShouldNotChangeInvalidValue(double invalidValue)
+        public void ShouldNotChangeInvalidValue(decimal invalidValue)
         {
             var course = CourseBuilder.New().Build();
 

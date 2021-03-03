@@ -6,10 +6,10 @@ namespace OnlineCourse.Domain.Students
 {
     public class Student : Entity
     {
-        public string Name { get; set; }
-        public int IdentificationId { get; set; }
-        public string Email { get; set; }
-        public TargetAudience TargetAudience { get; set; }
+        public string Name { get; private set; }
+        public int IdentificationId { get; private set; }
+        public string Email { get; private set; }
+        public TargetAudience TargetAudience { get; private set; }
 
         private Student() { }
 

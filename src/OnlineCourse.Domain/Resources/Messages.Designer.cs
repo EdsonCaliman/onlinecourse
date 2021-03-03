@@ -70,6 +70,15 @@ namespace OnlineCourse.Domain.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Invalid Course.
+        /// </summary>
+        public static string INVALID_COURSE {
+            get {
+                return ResourceManager.GetString("INVALID_COURSE", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Invalid Email.
         /// </summary>
         public static string INVALID_EMAIL {
@@ -93,6 +102,15 @@ namespace OnlineCourse.Domain.Resources {
         public static string INVALID_NAME {
             get {
                 return ResourceManager.GetString("INVALID_NAME", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Invalid Student.
+        /// </summary>
+        public static string INVALID_STUDENT {
+            get {
+                return ResourceManager.GetString("INVALID_STUDENT", resourceCulture);
             }
         }
         
@@ -129,6 +147,15 @@ namespace OnlineCourse.Domain.Resources {
         public static string NAME_IS_ALREADY_EXISTS {
             get {
                 return ResourceManager.GetString("NAME_IS_ALREADY_EXISTS", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Registration Value should not be bigger than the course Value.
+        /// </summary>
+        public static string REGISTRATION_VALUE_SHOULD_NOT_BE_BIGGER_THAN_COURSE {
+            get {
+                return ResourceManager.GetString("REGISTRATION_VALUE_SHOULD_NOT_BE_BIGGER_THAN_COURSE", resourceCulture);
             }
         }
     }
