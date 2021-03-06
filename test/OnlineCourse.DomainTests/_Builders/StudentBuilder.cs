@@ -11,7 +11,7 @@ namespace OnlineCourse.DomainTests._Builders
         private string Name;
         private int IdentificationId;
         private string Email;
-        private readonly TargetAudience TargetAudience;
+        private TargetAudience TargetAudience;
         private StudentBuilder()
         {
             _faker = new Faker();
@@ -43,6 +43,13 @@ namespace OnlineCourse.DomainTests._Builders
         public StudentBuilder WithEmail(string email)
         {
             this.Email = email;
+
+            return this;
+        }
+
+        public StudentBuilder WithTargetAudience(TargetAudience targetAudience)
+        {
+            this.TargetAudience = targetAudience;
 
             return this;
         }

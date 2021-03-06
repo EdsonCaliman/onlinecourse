@@ -1,5 +1,6 @@
 ﻿using ExpectedObjects;
 using OnlineCourse.Domain._Base;
+using OnlineCourse.Domain.Commons;
 using OnlineCourse.Domain.Courses;
 using OnlineCourse.Domain.Registrations;
 using OnlineCourse.Domain.Resources;
@@ -21,7 +22,7 @@ namespace OnlineCourse.DomainTests.Registrations
             {
                 Student = StudentBuilder.New().Build(),
                 Course = course,
-                Value = course.Value
+                course.Value
             };
 
             var registration = new Registration(expectedRegistration.Student, expectedRegistration.Course, expectedRegistration.Value);
@@ -79,5 +80,86 @@ namespace OnlineCourse.DomainTests.Registrations
 
         }
 
+        [Fact]
+        public void ShouldNotCreateWithTargetAudienceIsDiferent()
+        {
+            var course = CourseBuilder.New().WithTargetAudience(TargetAudience.Employee).Build();
+            var student = StudentBuilder.New().WithTargetAudience(TargetAudience.Student).Build();
+
+            Assert.Throws<DomainException>(() =>
+                RegistrationBuilder.New().WithCourse(course).WithStudent(student).Build())
+                .WithMessage(Messages.TARGET_AUDIENCE_IS_DIFERENT_STUDENT_COURSE);
+
+        }
+
+        [Fact]
+        public void ShouldInformTheGradeOfTheStudent()
+        {
+            const double expectedGrade = 9.5;
+            var registration = RegistrationBuilder.New().Build();
+
+            registration.InformGrade(expectedGrade);
+
+            Assert.Equal(expectedGrade, registration.StudentGrade);
+        }
+
+        [Theory]
+        [InlineData(-1)]
+        [InlineData(11)]
+        public void ShouldNotInformInvalidGrade(double invalidGrade)
+        {
+            var registration = RegistrationBuilder.New().Build();
+
+            Assert.Throws<DomainException>(() =>
+                registration.InformGrade(invalidGrade))
+                .WithMessage(Messages.INVALID_GRADE_STUDENT);
+        }
+
+        [Fact]
+        public void ShouldIndicateThatCourseWasConcluded()
+        {
+            const double expectedGrade = 9.5;
+            var registration = RegistrationBuilder.New().Build();
+
+            registration.InformGrade(expectedGrade);
+
+            Assert.True(registration.Course.Concluded);
+        }
+
+        [Fact]
+        public void ShouldCancelRegistration()
+        {
+            var registration = RegistrationBuilder.New().Build();
+
+            registration.Cancel();
+
+            Assert.True(registration.Canceled);
+        }
+
+        [Fact]
+        public void ShouldNotInformGradeWhenRegistrationIsCanceled()
+        {
+            const double studentGrade = 3;
+            var registration = RegistrationBuilder.New().Build();
+            registration.Cancel();
+
+            Assert.Throws<DomainException>(() =>
+                registration.InformGrade(studentGrade))
+                .WithMessage(Messages.CANCELED_REGISTRATION);
+
+        }
+
+        [Fact]
+        public void ShouldNotCancelWhenRegistrationIsConcluded()
+        {
+            const double studentGrade = 3;
+            var registration = RegistrationBuilder.New().Build();
+
+            registration.InformGrade(studentGrade);
+
+            Assert.Throws<DomainException>(() =>
+                registration.Cancel())
+                .WithMessage(Messages.CONCLUDED_REGISTRATION);
+        }
     }
 }

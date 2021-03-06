@@ -18,7 +18,7 @@ namespace OnlineCourse.DomainTests.Courses
         private readonly double _workLoad;
         private readonly TargetAudience _targetAudience;
         private readonly decimal _value;
-  
+
         public CourseTest()
         {
             _faker = new Faker();

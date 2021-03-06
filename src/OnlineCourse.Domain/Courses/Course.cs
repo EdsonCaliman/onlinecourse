@@ -11,6 +11,7 @@ namespace OnlineCourse.Domain.Courses
         public TargetAudience TargetAudience { get; private set; }
         public decimal Value { get; private set; }
         public string Description { get; private set; }
+        public bool Concluded { get; set; }
 
         protected Course()
         {

@@ -5,12 +5,14 @@ using OnlineCourse.Domain.Students;
 
 namespace OnlineCourse.Domain.Registrations
 {
-    public class Registration
+    public class Registration : Entity
     {
         public Student Student { get; private set; }
         public Course Course { get; private set; }
         public decimal Value { get; private set; }
         public bool HasDiscount { get; private set; }
+        public double  StudentGrade { get; private set; }
+        public bool Canceled { get; set; }
 
         public Registration(Student student, Course course, decimal value)
         {
@@ -19,12 +21,33 @@ namespace OnlineCourse.Domain.Registrations
                 .When(course == null, Messages.INVALID_COURSE)
                 .When(value < 1, Messages.INVALID_VALUE)
                 .When(course != null && value > course.Value, Messages.REGISTRATION_VALUE_SHOULD_NOT_BE_BIGGER_THAN_COURSE)
+                .When(student != null && course != null && student.TargetAudience != course.TargetAudience, Messages.TARGET_AUDIENCE_IS_DIFERENT_STUDENT_COURSE)
                 .ThrowExceptionIfExists();
 
             Student = student;
             Course = course;
             Value = value;
             HasDiscount = value < course.Value;
+        }
+
+        public void InformGrade(double grade)
+        {
+            RuleValidator.New()
+                .When(grade < 0 || grade > 10, Messages.INVALID_GRADE_STUDENT)
+                .When(Canceled, Messages.CANCELED_REGISTRATION)
+                .ThrowExceptionIfExists();
+
+            StudentGrade = grade;
+            Course.Concluded = true;
+        }
+
+        public void Cancel()
+        {
+            RuleValidator.New()
+                .When(Course.Concluded, Messages.CONCLUDED_REGISTRATION)
+                .ThrowExceptionIfExists();
+
+            Canceled = true;
         }
     }
 }

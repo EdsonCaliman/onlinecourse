@@ -61,6 +61,24 @@ namespace OnlineCourse.Domain.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Registration is canceled.
+        /// </summary>
+        public static string CANCELED_REGISTRATION {
+            get {
+                return ResourceManager.GetString("CANCELED_REGISTRATION", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Registration is concluded.
+        /// </summary>
+        public static string CONCLUDED_REGISTRATION {
+            get {
+                return ResourceManager.GetString("CONCLUDED_REGISTRATION", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to This Identification Id is already exists.
         /// </summary>
         public static string IDENTIFICATION_ID_IS_ALREADY_EXISTS {
@@ -88,6 +106,15 @@ namespace OnlineCourse.Domain.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Invalid Student Grade.
+        /// </summary>
+        public static string INVALID_GRADE_STUDENT {
+            get {
+                return ResourceManager.GetString("INVALID_GRADE_STUDENT", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Invalid Identification Id.
         /// </summary>
         public static string INVALID_IDENTIFICATION_ID {
@@ -102,6 +129,15 @@ namespace OnlineCourse.Domain.Resources {
         public static string INVALID_NAME {
             get {
                 return ResourceManager.GetString("INVALID_NAME", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Invalid Registration.
+        /// </summary>
+        public static string INVALID_REGISTRATION {
+            get {
+                return ResourceManager.GetString("INVALID_REGISTRATION", resourceCulture);
             }
         }
         
@@ -156,6 +192,15 @@ namespace OnlineCourse.Domain.Resources {
         public static string REGISTRATION_VALUE_SHOULD_NOT_BE_BIGGER_THAN_COURSE {
             get {
                 return ResourceManager.GetString("REGISTRATION_VALUE_SHOULD_NOT_BE_BIGGER_THAN_COURSE", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Target Audience of Student is different of Course.
+        /// </summary>
+        public static string TARGET_AUDIENCE_IS_DIFERENT_STUDENT_COURSE {
+            get {
+                return ResourceManager.GetString("TARGET_AUDIENCE_IS_DIFERENT_STUDENT_COURSE", resourceCulture);
             }
         }
     }
