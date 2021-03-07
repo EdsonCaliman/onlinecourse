@@ -12,9 +12,9 @@ namespace OnlineCourse.Infra.Repositories
         {
         }
 
-        public Student GetByIdentificationId(int identificationId)
+        public Student GetByIdentificationId(int id)
         {
-            var query = _context.Set<Student>().Where(s => s.IdentificationId == identificationId);
+            var query = _context.Set<Student>().Where(s => s.Id == id);
             return query.Any() ? query.First() : null;
         }
     }

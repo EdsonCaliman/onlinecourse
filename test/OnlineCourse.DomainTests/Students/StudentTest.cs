@@ -25,12 +25,11 @@ namespace OnlineCourse.DomainTests.Students
             var expectedStudent = new
             {
                 Name = _faker.Person.FullName,
-                IdentificationId = _faker.Random.Int(1, 1000),
                 _faker.Person.Email,
                 TargetAudience = TargetAudience.Student
             };
 
-            var student = new Student(expectedStudent.Name, expectedStudent.IdentificationId, expectedStudent.Email, expectedStudent.TargetAudience);
+            var student = new Student(expectedStudent.Name, expectedStudent.Email, expectedStudent.TargetAudience);
 
             expectedStudent.ToExpectedObject().ShouldMatch(student);
         }
@@ -41,14 +40,6 @@ namespace OnlineCourse.DomainTests.Students
         public void ShouldNotHaveStudentInvalidName(string invalidName)
         {
             Assert.Throws<DomainException>(() => StudentBuilder.New().WithName(invalidName).Build());
-        }
-
-        [Theory]
-        [InlineData(0)]
-        [InlineData(-10)]
-        public void ShouldNotHaveStudentInvalidIdentificationId(int invalidIdentificationId)
-        {
-            Assert.Throws<DomainException>(() => StudentBuilder.New().WithIdentificationId(invalidIdentificationId).Build());
         }
 
         [Theory]

@@ -123,8 +123,8 @@
   <data name="CONCLUDED_REGISTRATION" xml:space="preserve">
     <value>Registration is concluded</value>
   </data>
-  <data name="IDENTIFICATION_ID_IS_ALREADY_EXISTS" xml:space="preserve">
-    <value>This Identification Id is already exists</value>
+  <data name="ID_IS_ALREADY_EXISTS" xml:space="preserve">
+    <value>This Id is already exists</value>
   </data>
   <data name="INVALID_COURSE" xml:space="preserve">
     <value>Invalid Course</value>

@@ -18,14 +18,14 @@ namespace OnlineCourse.Domain.Students
 
         public void Add(StudentDto studentDto)
         {
-            var studentAlreadySave = _studentRepository.GetByIdentificationId(studentDto.IdentificationId);
+            var studentAlreadySave = _studentRepository.GetById(studentDto.Id);
 
             RuleValidator.New()
-                .When(studentAlreadySave != null, Messages.IDENTIFICATION_ID_IS_ALREADY_EXISTS)
+                .When(studentAlreadySave != null, Messages.ID_IS_ALREADY_EXISTS)
                 .When(!Enum.TryParse<TargetAudience>(studentDto.TargetAudience, out var targetAudience), Messages.INVALID_TARGETAUDIENCE)
                 .ThrowExceptionIfExists();
 
-            var student = new Student(studentDto.Name, studentDto.IdentificationId, studentDto.Email, targetAudience);
+            var student = new Student(studentDto.Name, studentDto.Email, targetAudience);
             
             _studentRepository.Add(student);
 
@@ -35,8 +35,8 @@ namespace OnlineCourse.Domain.Students
         {
             return _studentRepository.GetAll().Select(s => new StudentListDto
             {
+                Id = s.Id,
                 Name = s.Name,
-                IdentificationId = s.IdentificationId,
                 Email = s.Email,
                 TargetAudience = s.TargetAudience.ToString()
             });

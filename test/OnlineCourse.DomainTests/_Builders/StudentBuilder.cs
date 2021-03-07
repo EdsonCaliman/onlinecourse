@@ -9,14 +9,12 @@ namespace OnlineCourse.DomainTests._Builders
         private readonly Faker _faker;
 
         private string Name;
-        private int IdentificationId;
         private string Email;
         private TargetAudience TargetAudience;
         private StudentBuilder()
         {
             _faker = new Faker();
             Name = _faker.Person.FullName;
-            IdentificationId = _faker.Random.Int(1, 1000);
             Email = _faker.Person.Email;
             TargetAudience = TargetAudience.Student;
         }
@@ -29,13 +27,6 @@ namespace OnlineCourse.DomainTests._Builders
         public StudentBuilder WithName(string name)
         {
             this.Name = name;
-
-            return this;
-        }
-
-        public StudentBuilder WithIdentificationId(int identificationId)
-        {
-            this.IdentificationId = identificationId;
 
             return this;
         }
@@ -56,7 +47,7 @@ namespace OnlineCourse.DomainTests._Builders
 
         public Student Build()
         {
-            return new Student(Name, IdentificationId, Email, TargetAudience);
+            return new Student(Name, Email, TargetAudience);
         }
     }
 }

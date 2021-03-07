@@ -79,11 +79,11 @@ namespace OnlineCourse.Domain.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to This Identification Id is already exists.
+        ///   Looks up a localized string similar to This Id is already exists.
         /// </summary>
-        public static string IDENTIFICATION_ID_IS_ALREADY_EXISTS {
+        public static string ID_IS_ALREADY_EXISTS {
             get {
-                return ResourceManager.GetString("IDENTIFICATION_ID_IS_ALREADY_EXISTS", resourceCulture);
+                return ResourceManager.GetString("ID_IS_ALREADY_EXISTS", resourceCulture);
             }
         }
         

@@ -23,7 +23,7 @@ namespace OnlineCourse.DomainTests.Students
             {
                 Name = _faker.Person.FullName,
                 Email = _faker.Person.Email,
-                IdentificationId = _faker.Random.Int(1, 1000),
+                Id = _faker.Random.Int(1, 1000),
                 TargetAudience = "Student"
             };
 
@@ -39,18 +39,6 @@ namespace OnlineCourse.DomainTests.Students
 
             _studentRepositoryMock.Verify(s => s.Add(It.IsAny<Student>()));
             
-        }
-
-        [Fact]
-        public void ShouldNotAddStudentWithSameIdentificationId()
-        {
-            var studentAlreadySave = StudentBuilder.New().WithName(_studentDto.Name).Build();
-
-            _studentRepositoryMock.Setup(r => r.GetByIdentificationId(_studentDto.IdentificationId)).Returns(studentAlreadySave);
-
-            Assert.Throws<DomainException>(() => _studentService.Add(_studentDto))
-                .WithMessage(Messages.IDENTIFICATION_ID_IS_ALREADY_EXISTS);
-
         }
 
         [Fact]

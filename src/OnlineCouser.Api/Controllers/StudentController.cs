@@ -30,14 +30,14 @@ namespace OnlineCouser.Api.Controllers
             {
                 _studentService.Add(model);
             }
+            catch (DomainException exception)
+            {
+                return new JsonResult(exception.ListOfRules);
+
+            }
             catch (Exception ex)
             {
-                if (ex is DomainException exception)
-                {
-                    return new
-                        JsonResult(exception.ListOfRules);
-                }
-
+                return new JsonResult(ex.Message);
             }
 
             return Ok();
@@ -50,14 +50,14 @@ namespace OnlineCouser.Api.Controllers
             {
                 _studentService.Update(model);
             }
+            catch (DomainException exception)
+            {
+                return new JsonResult(exception.ListOfRules);
+
+            }
             catch (Exception ex)
             {
-                if (ex is DomainException exception)
-                {
-                    return new
-                        JsonResult(exception.ListOfRules);
-                }
-
+                return new JsonResult(ex.Message);
             }
 
             return Ok();
