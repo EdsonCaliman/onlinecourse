@@ -8,7 +8,9 @@ namespace OnlineCourse.Domain.Registrations
     public class Registration : Entity
     {
         public Student Student { get; private set; }
+        public int StudentId { get; private set; }
         public Course Course { get; private set; }
+        public int CourseId { get; private set; }
         public decimal Value { get; private set; }
         public bool HasDiscount { get; private set; }
         public double  StudentGrade { get; private set; }
@@ -28,6 +30,9 @@ namespace OnlineCourse.Domain.Registrations
             Course = course;
             Value = value;
             HasDiscount = value < course.Value;
+        }
+        private Registration()
+        {
         }
 
         public void InformGrade(double grade)

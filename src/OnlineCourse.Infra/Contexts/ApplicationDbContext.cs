@@ -1,7 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using OnlineCourse.Domain.Courses;
+using OnlineCourse.Domain.Registrations;
 using OnlineCourse.Domain.Students;
-using System.Threading.Tasks;
 
 namespace OnlineCourse.Infra.Contexts
 {
@@ -13,6 +13,7 @@ namespace OnlineCourse.Infra.Contexts
 
         public DbSet<Course> Courses { get; set; }
         public DbSet<Student> Students { get; set; }
+        public DbSet<Registration> Registrations { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
