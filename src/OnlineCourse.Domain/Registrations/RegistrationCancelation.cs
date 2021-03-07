@@ -14,7 +14,7 @@ namespace OnlineCourse.Domain.Registrations
 
         public void Cancel(int registrationId)
         {
-            var registration = _registrationRepository.GetById(registrationId);
+            var registration = _registrationRepository.GetByIdWithIncludes(registrationId);
 
             RuleValidator.New()
                 .When(registration == null, Messages.INVALID_REGISTRATION)

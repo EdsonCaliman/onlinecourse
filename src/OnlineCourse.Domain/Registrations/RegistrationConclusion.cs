@@ -14,7 +14,7 @@ namespace OnlineCourse.Domain.Registrations
 
         public void Conclude(int registrationId, int expectedGrade)
         {
-            var registration = _registrationRepository.GetById(registrationId);
+            var registration = _registrationRepository.GetByIdWithIncludes(registrationId);
 
             RuleValidator.New()
                 .When(registration == null, Messages.INVALID_REGISTRATION)

@@ -1,8 +1,8 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using OnlineCourse.Domain._Base;
 using OnlineCourse.Domain.Courses;
 using System;
 using System.Collections.Generic;
-using OnlineCourse.Domain._Base;
 
 namespace OnlineCouser.Api.Controllers
 {
@@ -30,14 +30,14 @@ namespace OnlineCouser.Api.Controllers
             {
                 _courseService.Add(model);
             }
+            catch(DomainException exception)
+            {
+               return new JsonResult(exception.ListOfRules);
+ 
+            }
             catch (Exception ex)
             {
-                if(ex is DomainException exception)
-                {
-                    return new
-                        JsonResult(exception.ListOfRules);
-                }
-
+                return new JsonResult(ex.Message);
             }
 
             return Ok();
@@ -50,14 +50,14 @@ namespace OnlineCouser.Api.Controllers
             {
                 _courseService.Update(model);
             }
+            catch (DomainException exception)
+            {
+                return new JsonResult(exception.ListOfRules);
+
+            }
             catch (Exception ex)
             {
-                if (ex is DomainException exception)
-                {
-                    return new
-                        JsonResult(exception.ListOfRules);
-                }
-
+                return new JsonResult(ex.Message);
             }
 
             return Ok();

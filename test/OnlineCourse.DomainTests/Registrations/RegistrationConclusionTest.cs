@@ -25,7 +25,7 @@ namespace OnlineCourse.DomainTests.Registrations
         public void ShouldInforStudentGrade()
         {
             var expectedStudentGrade = 8;
-            _registrationRepository.Setup(r => r.GetById(_registration.Id)).Returns(_registration);
+            _registrationRepository.Setup(r => r.GetByIdWithIncludes(_registration.Id)).Returns(_registration);
 
             _registrationConclusion.Conclude(_registration.Id, expectedStudentGrade);
 

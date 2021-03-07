@@ -24,7 +24,7 @@ namespace OnlineCourse.DomainTests.Registrations
         [Fact]
         public void ShouldCancelRegistration()
         {
-            _registrationRepository.Setup(r => r.GetById(_registration.Id)).Returns(_registration);
+            _registrationRepository.Setup(r => r.GetByIdWithIncludes(_registration.Id)).Returns(_registration);
 
             _registrationCancelation.Cancel(_registration.Id);
 
